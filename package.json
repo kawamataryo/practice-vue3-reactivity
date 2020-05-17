@@ -1,8 +1,0 @@
-{
-  "name": "practice-vue3-reactivity",
-  "version": "1.0.0",
-  "main": "index.js",
-  "repository": "ssh://git@github.com/kawamataryo/practice-vue3-reactivity.git",
-  "author": "kawamataryou <ba068082@gmail.com>",
-  "license": "MIT"
-}

@@ -15,13 +15,13 @@ function track<T extends Object>(target: T, key: keyof T) {
   if (activeEffect) {
     let depsMap = targetMap.get(target);
     if (!depsMap) {
-      depsMap = new Map();
+      depsMap = new Map<keyof T, Set<Effect>>();
       targetMap.set(target, depsMap);
     }
 
     let dep = depsMap.get(key);
     if (!dep) {
-      dep = new Set();
+      dep = new Set<Effect>();
       depsMap.set(key, dep);
     }
     dep.add(activeEffect);

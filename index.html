@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <script src="./src/auto-reactivity.js"></script>
+</head>
+<body style="margin: 30px">
+  <h1>Hello Vue3 reactivity</h1>
+  <div>val1: <input id="val1" type="text"></input></div>
+  <div>val2: <input id="val2" type="text"></input></div>
+  <hr>
+  <div>sum: <span id="sum"></span></div>
+  <div>difference: <span id="difference"></span></div>
+  <div>multiple: <span id="multiple"></span></div>
+  <div>division: <span id="division"></span></div>
+</body>
+
+<script>
+  const values = reactive({ val1: 0, val2: 0 })
+
+  // sum
+  effect(() => {
+    document.querySelector("#sum").textContent = values.val1 + values.val2
+  })
+
+  // difference
+  effect(() => {
+    document.querySelector("#difference").textContent = values.val1 - values.val2
+  })
+
+  // multiple
+  effect(() => {
+    document.querySelector("#multiple").textContent = values.val1 * values.val2
+  })
+
+  // division
+  effect(() => {
+    document.querySelector("#division").textContent = values.val1 / values.val2
+  })
+
+  // input listener val1
+  document.querySelector("#val1").addEventListener('input', (e) => {
+    if(isNaN(e.target.value)) { return }
+    values.val1 = Number(e.target.value)
+  })
+
+  // input listener val2
+  document.querySelector("#val2").addEventListener('input', (e) => {
+    if(isNaN(e.target.value)) { return }
+    values.val2 = Number(e.target.value)
+  })
+</script>
+</html>

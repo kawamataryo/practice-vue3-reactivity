@@ -41,15 +41,15 @@
   })
 
   // input listener val1
-  document.querySelector("#val1").addEventListener('input', (e) => {
-    if(isNaN(e.target.value)) { return }
-    values.val1 = Number(e.target.value)
+  document.querySelector("#val1").addEventListener('input', ({ target: { value }}) => {
+    if(isNaN(value)) { return }
+    values.val1 = Number(value)
   })
 
   // input listener val2
-  document.querySelector("#val2").addEventListener('input', (e) => {
-    if(isNaN(e.target.value)) { return }
-    values.val2 = Number(e.target.value)
+  document.querySelector("#val2").addEventListener('input', ({ target: { value }}) => {
+    if(isNaN(value)) { return }
+    values.val2 = Number(value)
   })
 </script>
 </html>

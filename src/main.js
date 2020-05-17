@@ -4,9 +4,9 @@ const targetMap = new WeakMap();
 let activeEffect = null;
 
 function effect(eff) {
-  activeEffect = eff; // Set this as the activeEffect
-  activeEffect(); // Run it
-  activeEffect = null; // Unset it
+  activeEffect = eff;
+  activeEffect();
+  activeEffect = null;
 }
 
 // オブジェクトのキーごとの依存関数を記録
@@ -44,7 +44,7 @@ function trigger(target, key) {
   });
 }
 
-// reactive
+// リアクティブなオブジェクトを返す
 function reactive(target) {
   const handler = {
     get(target, key, receiver) {

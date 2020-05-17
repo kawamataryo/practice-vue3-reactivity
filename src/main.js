@@ -65,5 +65,5 @@ function reactive(target) {
 }
 
 function ref(value) {
-  return reactive({ value })
+  return reactive({ value });
 }

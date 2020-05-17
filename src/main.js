@@ -1,6 +1,3 @@
-// グローバルにリアクティブなオブジェクトを保存している
-const targetMap = new WeakMap();
-
 let activeEffect = null;
 
 function effect(eff) {
@@ -8,6 +5,8 @@ function effect(eff) {
   activeEffect();
   activeEffect = null;
 }
+
+const targetMap = new WeakMap();
 
 // オブジェクトのキーごとの依存関数を記録
 function track(target, key) {

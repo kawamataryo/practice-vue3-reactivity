@@ -1,5 +1,6 @@
 type Effect = () => void
 type ActiveEffect = Effect | null;
+type TargetMap = WeakMap<Object, Map<any, Set<Effect>>>
 
 let activeEffect: ActiveEffect = null;
 
@@ -9,7 +10,7 @@ function effect(eff: () => void) {
   activeEffect = null;
 }
 
-const targetMap = new WeakMap();
+const targetMap: TargetMap = new WeakMap();
 
 function track<T extends Object>(target: T, key: keyof T) {
   if (activeEffect) {

@@ -8,7 +8,6 @@ function effect(eff) {
 
 const targetMap = new WeakMap();
 
-// オブジェクトのキーごとの依存関数を記録
 function track(target, key) {
   if (activeEffect) {
     let depsMap = targetMap.get(target);
@@ -26,7 +25,6 @@ function track(target, key) {
   }
 }
 
-// オブジェクトのキーごとの依存関数を再実行
 function trigger(target, key) {
   const depsMap = targetMap.get(target);
   if (!depsMap) {
@@ -43,7 +41,6 @@ function trigger(target, key) {
   });
 }
 
-// リアクティブなオブジェクトを返す
 function reactive(target) {
   const handler = {
     get(target, key, receiver) {

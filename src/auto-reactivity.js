@@ -64,14 +64,20 @@ function reactive(target) {
   return new Proxy(target, handler);
 }
 
+function ref(value) {
+  return reactive({ value })
+}
+
 const product = reactive({ price: 5, quantity: 2 });
 let total = 0;
+let tax = ref(0.5)
 
 effect(() => {
-  total = product.price * product.quantity;
+  total = product.price * tax.value;
 });
 
-console.log(total); // 10
-
+console.log(total); // 5
 product.price = 10;
-console.log(total); // 20
+console.log(total); // 10
+tax.value = 1;
+console.log(total); // 10

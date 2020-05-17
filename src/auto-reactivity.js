@@ -55,7 +55,9 @@ function reactive(target) {
     set(target, key, value, receiver) {
       const oldValue = target[key];
       Reflect.set(...arguments);
-      if (oldValue === value) { return }
+      if (oldValue === value) {
+        return;
+      }
       trigger(target, key);
     },
   };

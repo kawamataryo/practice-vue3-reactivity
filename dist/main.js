@@ -17,7 +17,6 @@ function track(target, key) {
       depsMap = new Map();
       targetMap.set(target, depsMap);
     }
-
     let dep = depsMap.get(key);
     if (!dep) {
       dep = new Set();
@@ -32,13 +31,11 @@ function trigger(target, key) {
   if (!depsMap) {
     return;
   }
-
   const dep = depsMap.get(key);
   if (!dep) {
     return;
   }
   dep.forEach((effect) => {
-    // 関数を再実行
     effect();
   });
 }
@@ -46,17 +43,17 @@ function trigger(target, key) {
 function reactive(target) {
   const handler = {
     get(target, key, receiver) {
-      const result = Reflect.get(...arguments);
+      const result = Reflect.get(target, key, receiver);
       track(target, key);
       return result;
     },
     set(target, key, value, receiver) {
       const oldValue = target[key];
-      Reflect.set(...arguments);
-      if (oldValue === value) {
-        return;
+      const result = Reflect.set(target, key, value, receiver);
+      if (oldValue !== value) {
+        trigger(target, key);
       }
-      trigger(target, key);
+      return result;
     },
   };
   return new Proxy(target, handler);

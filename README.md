@@ -4,4 +4,5 @@
 
 ```bash
 $ tsc
+$ open ./index.html
 ```

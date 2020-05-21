@@ -4,7 +4,7 @@ type TargetMap = WeakMap<Object, Map<any, Set<Effect>>>
 
 let activeEffect: ActiveEffect = null;
 
-function effect(eff: () => void) {
+function effect(eff: Effect) {
   activeEffect = eff;
   activeEffect();
   activeEffect = null;

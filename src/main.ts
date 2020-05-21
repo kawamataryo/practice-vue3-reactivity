@@ -12,6 +12,7 @@ function effect(eff: () => void) {
 
 const targetMap: TargetMap = new WeakMap();
 
+// track to deps functions
 function track<T extends Object>(target: T, key: keyof T) {
   if (activeEffect) {
     let depsMap = targetMap.get(target);
@@ -29,6 +30,7 @@ function track<T extends Object>(target: T, key: keyof T) {
   }
 }
 
+// re execute the deps function
 function trigger<T extends Object>(target: T, key: keyof T) {
   const depsMap = targetMap.get(target);
   if (!depsMap) {
@@ -40,11 +42,11 @@ function trigger<T extends Object>(target: T, key: keyof T) {
     return;
   }
   dep.forEach((effect: Effect) => {
-    // 関数を再実行
     effect();
   });
 }
 
+// create reactive object
 function reactive<T extends Object>(target: T) {
   const handler: ProxyHandler<T> = {
     get(target, key, receiver) {
@@ -64,6 +66,7 @@ function reactive<T extends Object>(target: T) {
   return new Proxy(target, handler);
 }
 
+// create reactive object from primitive
 function ref(value: string | number | any[]) {
   return reactive({ value });
 }

@@ -6,6 +6,7 @@ function effect(eff) {
     activeEffect = null;
 }
 const targetMap = new WeakMap();
+// track to deps functions
 function track(target, key) {
     if (activeEffect) {
         let depsMap = targetMap.get(target);
@@ -21,6 +22,7 @@ function track(target, key) {
         dep.add(activeEffect);
     }
 }
+// re execute the deps function
 function trigger(target, key) {
     const depsMap = targetMap.get(target);
     if (!depsMap) {
@@ -31,10 +33,10 @@ function trigger(target, key) {
         return;
     }
     dep.forEach((effect) => {
-        // 関数を再実行
         effect();
     });
 }
+// create reactive object
 function reactive(target) {
     const handler = {
         get(target, key, receiver) {
@@ -53,6 +55,7 @@ function reactive(target) {
     };
     return new Proxy(target, handler);
 }
+// create reactive object from primitive
 function ref(value) {
     return reactive({ value });
 }

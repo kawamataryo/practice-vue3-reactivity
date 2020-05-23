@@ -56,6 +56,16 @@ function reactive(target) {
     return new Proxy(target, handler);
 }
 // create reactive object from primitive
-function ref(value) {
-    return reactive({ value });
+function ref(raw) {
+    const r = {
+        get value() {
+            track(r, 'value');
+            return raw;
+        },
+        set value(newVal) {
+            raw = newVal;
+            trigger(r, 'value');
+        }
+    };
+    return r;
 }

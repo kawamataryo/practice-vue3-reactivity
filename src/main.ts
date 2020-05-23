@@ -67,6 +67,16 @@ function reactive<T extends Object>(target: T) {
 }
 
 // create reactive object from primitive
-function ref(value: string | number | any[]) {
-  return reactive({ value });
+function ref(raw: string | number | any[]) {
+  const r = {
+    get value() {
+      track(r, 'value')
+      return raw
+    },
+    set value(newVal) {
+      raw = newVal
+      trigger(r, 'value')
+    }
+  }
+  return r
 }
